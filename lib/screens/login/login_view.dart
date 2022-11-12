@@ -39,7 +39,10 @@ class LoginView extends StatelessWidget {
                     ),
                     child: Column(
                       children: [
-                        phoneTextField(),
+                        Form(
+                          key: viewModel.loginFormKey,
+                          child: phoneTextField(),
+                        ),
                         const SizedBox(height: 20),
                         verifyBtn(),
                       ],
@@ -117,10 +120,8 @@ class LoginView extends StatelessWidget {
         prefixIcon: Icons.phone,
         title: 'Phone',
         hintText: '03xxxxxxxxx',
-        keyboardType: TextInputType.phone,
-        inputFormatters: [
-          LengthLimitingTextInputFormatter(11),
-        ],
+        keyboardType: TextInputType.numberWithOptions(),
+        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
         autoValidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
           return viewModel.validateTextField(value);
