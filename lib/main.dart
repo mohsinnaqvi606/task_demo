@@ -6,7 +6,7 @@ import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async{
-  WidgetsFlutterBinding.ensureInitialized();
+   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.blueGrey,
+        primaryColor: Color(0xff5faf40),
       ),
       home: LoginView(),
     );

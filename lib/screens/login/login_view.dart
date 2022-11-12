@@ -13,27 +13,100 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Stack(
-        children: [
-          Loader(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              children: [
-                Container(height: 80, width: 80, color: Colors.red),
-                Text('Hi'),
-                phoneTextField(),
-                verifyBtn()
-              ],
+      child: Scaffold(
+        backgroundColor: const Color(0xff363636),
+        body: Stack(
+          children: [
+            const Loader(),
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  const SizedBox(height: 80),
+                  logo(),
+                  const SizedBox(height: 30),
+                  welcomeText(),
+                  signInText(),
+                  Container(
+                    height: Get.height * 0.425,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 40),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.8),
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    child: Column(
+                      children: [
+                        phoneTextField(),
+                        const SizedBox(height: 20),
+                        verifyBtn(),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
+  }
+
+  Widget logo() {
+    return Image.asset(
+      'assets/images/logo.png',
+      width: Get.width * 0.4,
+    );
+  }
+
+  Widget welcomeText() {
+    return Column(
+      children: [
+        const Text(
+          'Welcome to',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w900,
+          ),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text(
+              'Pak ',
+              style: TextStyle(
+                  color: Color(0xff5faf40),
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700),
+            ),
+            Text(
+              ' Residencia',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
+  Widget signInText() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 45.0),
+      child: Text(
+        'Sign in to continue',
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+        ),
+      ),
+    );
   }
 
   Widget phoneTextField() {
@@ -43,9 +116,10 @@ class LoginView extends StatelessWidget {
         controller: viewModel.phoneController,
         prefixIcon: Icons.phone,
         title: 'Phone',
+        hintText: '03xxxxxxxxx',
         keyboardType: TextInputType.phone,
         inputFormatters: [
-           LengthLimitingTextInputFormatter(11),
+          LengthLimitingTextInputFormatter(11),
         ],
         autoValidateMode: AutovalidateMode.onUserInteraction,
         validator: (value) {
@@ -56,11 +130,18 @@ class LoginView extends StatelessWidget {
   }
 
   Widget verifyBtn() {
-    return CustomElevatedBtn(
-      child: Text('Verify'),
-      onPressed: (){
-        viewModel.authentication();
-      },
+    return SizedBox(
+      width: double.infinity,
+      child: CustomElevatedBtn(
+        backgroundColor: const Color(0xff8ec74a),
+        child: const Text(
+          'LOGIN',
+          style: TextStyle(fontWeight: FontWeight.w900, fontSize: 18),
+        ),
+        onPressed: () {
+          viewModel.authentication();
+        },
+      ),
     );
   }
 }

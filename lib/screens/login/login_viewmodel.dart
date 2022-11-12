@@ -23,13 +23,14 @@ class LoginViewModel extends GetxController {
   }
 
   authentication() async {
-
+    FocusScope.of(Get.context!).requestFocus(FocusNode());
     FirebaseAuth auth = FirebaseAuth.instance;
     Loader.loader.value = true;
     print('+92${phoneController.text.replaceFirst('0', '')}');
     auth.verifyPhoneNumber(
       phoneNumber: '+92${phoneController.text.replaceFirst('0', '')}',
       verificationCompleted: (AuthCredential authCredential) {
+        phoneController.text = '';
         Loader.loader.value = false;
         Get.offAll(() => const HomeView());
       },
